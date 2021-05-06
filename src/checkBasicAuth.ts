@@ -11,13 +11,14 @@ async function checkBasicAuth(
   if (!req.headers.authorization) {
     res.setHeader("WWW-Authenticate", 'Basic realm="Protected"')
     res.statusCode = 401
-    res.end('<html>Unauthorized</html>')
+    res.end("<html>Unauthorized</html>")
   } else {
     const [user, password] = authHeaderToBase64(req.headers.authorization)
 
     if (!findAndCheckUser(user, password, users)) {
       res.setHeader("WWW-Authenticate", 'Basic realm="Protected"')
       res.statusCode = 401
+      res.end("<html>Unauthorized</html>")
     }
   }
 }
